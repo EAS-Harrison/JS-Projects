@@ -18,10 +18,14 @@ const readline = require('readline').createInterface({
             message: 'What is your contacts name?',
           },
           {
+            name: 'email',
+            message: 'What is your contacts email?',
+          },
+          {
             name: 'number',
             message: 'What is your contacts number?',
           },
         ])
         .then(answers => {
-          console.log(`Name: ${answers["name"]} , Number: ${answers["number"]}`)
+          console.log(`Name: ${answers["name"]} , Number: ${answers["number"]} , Email: ${answers["email"]}`)
         })}
