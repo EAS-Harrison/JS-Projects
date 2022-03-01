@@ -23,5 +23,5 @@ const readline = require('readline').createInterface({
           },
         ])
         .then(answers => {
-          console.log('Answers:', answers);
+          console.log(`Name: ${answers["name"]} , Number: ${answers["number"]}`)
         })}
