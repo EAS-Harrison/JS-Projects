@@ -11,15 +11,17 @@ const readline = require('readline').createInterface({
             "email": "" }
         }] // this will be repeated for every contact obviously with real data.
 
-var questions = [
-    {
-      type: 'input',
-      name: 'name',
-      number: 'number',
-      email: 'email',
-      message: "What are your details?",
-    }
-  ]
-  inquirer.prompt(questions).then(answers => {
-    console.log(`Hi ${answers['name']} ${answers['number']}!`)
-  }}
+        inquirer
+        .prompt([
+          {
+            name: 'name',
+            message: 'What is your contacts name?',
+          },
+          {
+            name: 'number',
+            message: 'What is your contacts number?',
+          },
+        ])
+        .then(answers => {
+          console.log('Answers:', answers);
+        })}
