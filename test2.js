@@ -76,18 +76,21 @@ function create() {
 inquirer.prompt(questions).then((answers) => {
   console.log(JSON.stringify(answers, null, '  '));
     contacts.push(answers);
+    main()
 });
 }
 function remove() {
     inquirer.prompt(questions).then((answers) => {
       console.log(JSON.stringify(answers, null, '  '));
         contacts.pop(answers);
+        main()
     })
 }
 function update() {
     inquirer.prompt(questions).then((answers) => {
       console.log(JSON.stringify(answers, null, '  '));
         contacts.push(answers);
+        main()
     })
 }
 function all() {
