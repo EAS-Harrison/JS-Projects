@@ -21,7 +21,9 @@ const main = async () => {
         case 'Create a contact':
         create()
         break;
-    
+        case 'Delete a contact':
+            remove()
+        break;
     }
     }
 
@@ -66,4 +68,10 @@ inquirer.prompt(questions).then((answers) => {
   console.log(JSON.stringify(answers, null, '  '));
     contacts.push(answers);
 });
+}
+function remove() {
+    inquirer.prompt(questions).then((answers) => {
+      console.log(JSON.stringify(answers, null, '  '));
+        contacts.pop(answers);
+    })
 }
