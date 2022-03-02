@@ -24,6 +24,9 @@ const main = async () => {
         case 'Delete a contact':
             remove()
         break;
+        case 'Update a contact':
+            update()
+        break;
     }
     }
 
@@ -73,5 +76,11 @@ function remove() {
     inquirer.prompt(questions).then((answers) => {
       console.log(JSON.stringify(answers, null, '  '));
         contacts.pop(answers);
+    })
+}
+function update() {
+    inquirer.prompt(questions).then((answers) => {
+      console.log(JSON.stringify(answers, null, '  '));
+        contacts.push(answers);
     })
 }
