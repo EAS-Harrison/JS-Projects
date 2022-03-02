@@ -27,6 +27,12 @@ const main = async () => {
         case 'Update a contact':
             update()
         break;
+        case 'Get contact by name':
+        search()
+        break;
+        case 'Get all contacts':
+        all()
+        break;
     }
     }
 
@@ -83,4 +89,7 @@ function update() {
       console.log(JSON.stringify(answers, null, '  '));
         contacts.push(answers);
     })
+}
+function all() {
+console.log(contacts)
 }
