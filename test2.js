@@ -95,4 +95,5 @@ function update() {
 }
 function all() {
 console.log(contacts)
+main()
 }
