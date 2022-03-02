@@ -1,4 +1,3 @@
-const { create } = require('domain')
 const inquirer = require('inquirer')
 const readline = require('readline').createInterface({
     input: process.stdin,
