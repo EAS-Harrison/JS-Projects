@@ -97,6 +97,12 @@ function all() {
 console.log(contacts)
 main()
 }
-function search(){
-  
+function search() {
+  inquirer.prompt(questions).then((answers) => {
+    console.log(JSON.stringify(answers, null, '  '));
+    if (contacts.name == JSON.stringify(answers, null, '  ')){
+      console.log(contacts);
+    }
+      main()
+  })
 }
