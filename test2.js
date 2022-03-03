@@ -40,7 +40,8 @@ main()
 
 
 
-var contacts = []
+var contacts = [{"full_name": "j",
+"phone": "07436903810"}]
 const questions = [
   {
     type: 'input',
@@ -49,11 +50,6 @@ const questions = [
     default() {
       return 'John Doe';
     },
-  },
-  {
-    type: 'input',
-    name: 'email',
-    message: "What's your contacts email address?",
   },
  
   {
@@ -79,13 +75,24 @@ inquirer.prompt(questions).then((answers) => {
     main()
 });
 }
+
 function remove() {
-    inquirer.prompt(questions).then((answers) => {
-      console.log(JSON.stringify(answers, null, '  '));
-        contacts.pop(answers);
-        main()
-    })
-}
+  let removeQuestions = [{
+    type: "list",
+    name: "name",
+    message: "Pick a contact to remove.",
+    choices: contacts.map(contact => {
+      return contact.full_name
+    }),
+  }]
+    inquirer.prompt(removeQuestions).then((answers) => {
+      contacts = contacts.filter(contact => contact.full_name != full_name)
+        }); 
+      console.log(answers)
+    
+       main()
+    }
+
 function update() {
     inquirer.prompt(questions).then((answers) => {
       console.log(JSON.stringify(answers, null, '  '));
@@ -100,9 +107,10 @@ main()
 function search() {
   inquirer.prompt(questions).then((answers) => {
     console.log(JSON.stringify(answers, null, '  '));
-    if (contacts.name == JSON.stringify(answers, null, '  ')){
-      console.log(contacts);
-    }
+    console.log(contacts.name)
+    //if (contacts.name == JSON.stringify(answers, null, '  ')){
+    //  console.log(contacts);
+   // }
       main()
   })
 }
