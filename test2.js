@@ -86,12 +86,12 @@ function remove() {
     }),
   }]
     inquirer.prompt(removeQuestions).then((answers) => {
-      contacts = contacts.filter(contact => contact.full_name != full_name)
-        }); 
-      console.log(answers)
+      contacts = contacts.filter(contact => contact.full_name != answers.name);
+      main()
+    })
+  }
+   
     
-       main()
-    }
 
 function update() {
     inquirer.prompt(questions).then((answers) => {
