@@ -97,3 +97,6 @@ function all() {
 console.log(contacts)
 main()
 }
+function search(){
+  
+}
