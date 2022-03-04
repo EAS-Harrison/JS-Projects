@@ -105,7 +105,12 @@ console.log(contacts)
 main()
 }
 function search() {
-  inquirer.prompt(questions).then((answers) => {
+  let searchQuestions = [{
+    type: "input",
+    name: "search",
+    message: "Enter the name of the contact you are looking for.",
+  }] 
+  inquirer.prompt(searchQuestions).then((answers) => {
     console.log(JSON.stringify(answers, null, '  '));
     console.log(contacts.name)
     //if (contacts.name == JSON.stringify(answers, null, '  ')){
