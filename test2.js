@@ -2,46 +2,48 @@
 'use strict';
 const inquirer = require('inquirer');
 const main = async () => {
-    const { choice } = await inquirer.prompt([
-        {
-            type: 'list',
-            name: 'choice',
-            message: 'What do you want to do?',
-            choices: [
-                'Create a contact',
-                'Update a contact',
-                'Delete a contact',
-                'Get contact by name',
-                'Get all contacts',
-            ],
-        }
-    ])
-    console.log(choice)
-    switch(choice){
-        case 'Create a contact':
-        create()
-        break;
-        case 'Delete a contact':
-            remove()
-        break;
-        case 'Update a contact':
-            update()
-        break;
-        case 'Get contact by name':
-        search()
-        break;
-        case 'Get all contacts':
-        all()
-        break;
+  const { choice } = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'choice',
+      message: 'What do you want to do?',
+      choices: [
+        'Create a contact',
+        'Update a contact',
+        'Delete a contact',
+        'Get contact by name',
+        'Get all contacts',
+      ],
     }
-    }
+  ])
+  console.log(choice)
+  switch (choice) {
+    case 'Create a contact':
+      create()
+      break;
+    case 'Delete a contact':
+      remove()
+      break;
+    case 'Update a contact':
+      update()
+      break;
+    case 'Get contact by name':
+      search()
+      break;
+    case 'Get all contacts':
+      all()
+      break;
+  }
+}
 
 main()
 
 
 
-var contacts = [{"full_name": "j",
-"phone": "07436903810"}]
+var contacts = [{
+  "full_name": "j",
+  "phone": "07436903810"
+}]
 const questions = [
   {
     type: 'input',
@@ -51,7 +53,7 @@ const questions = [
       return 'John Doe';
     },
   },
- 
+
   {
     type: 'input',
     name: 'phone',
@@ -62,18 +64,18 @@ const questions = [
       );
       if (pass) {
         return true;
-      } 
+      }
 
       return 'Please enter a valid phone number';
     },
   },
 ];
 function create() {
-inquirer.prompt(questions).then((answers) => {
-  console.log(JSON.stringify(answers, null, '  '));
+  inquirer.prompt(questions).then((answers) => {
+    console.log(JSON.stringify(answers, null, '  '));
     contacts.push(answers);
     main()
-});
+  });
 }
 
 function remove() {
@@ -85,22 +87,26 @@ function remove() {
       return contact.full_name
     }),
   }]
-    inquirer.prompt(removeQuestions).then((answers) => {
-      contacts = contacts.filter(contact => contact.full_name != answers.name);
-      main()
-    })
-  }
+  inquirer.prompt(removeQuestions).then((answers) => {
+    contacts = contacts.filter(contact => contact.full_name != answers.name);
+    main()
+  })
+}
 function search() {
   let searchQuestions = [{
     type: "input",
     name: "name",
     message: "Enter the name of the contact you are looking for.",
-  }] 
+  }]
+
   inquirer.prompt(searchQuestions).then((answers) => {
-    console.log(JSON.stringify(answers, null, '  '));
-    
-    
-      main()
+    for (var i = 0; i < contacts.length; i++) {
+      if (contacts[i].full_name === answers.name) {
+        console.log(contacts[i])
+      }
+
+    }
+    main()
   })
 }
 function update() {
@@ -112,13 +118,16 @@ function update() {
       return contact.full_name
     }),
   }]
-    inquirer.prompt(questions).then((answers) => {
-      console.log(JSON.stringify(answers, null, '  '));
-        contacts.push(answers);
-        main()
-    })
+  inquirer.prompt(updateQuestions).then((answers) => {
+    for (var a = 0; a < contacts.length; a++){
+      
+    }
+    
+    contacts.push(answers);
+    main()
+  })
 }
 function all() {
-console.log(contacts)
-main()
+  console.log(contacts)
+  main()
 }
