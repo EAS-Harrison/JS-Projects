@@ -1,6 +1,7 @@
 //testycles
 'use strict';
 const inquirer = require('inquirer');
+const fs = require('fs');
 const main = async () => {
   const { choice } = await inquirer.prompt([
     {
@@ -109,24 +110,43 @@ function search() {
     main()
   })
 }
-function update() {
-  let updateQuestions = [{
-    type: "list",
-    name: "name",
-    message: "Pick a contact to update.",
+function update(){
+  let updateQuestions = [
+    {
+      type: 'list',
+      name: 'full_name',
+      message: "Pick a contact to update.",
     choices: contacts.map(contact => {
       return contact.full_name
     }),
-  }]
+    },
+  
+    {
+      type: 'input',
+      name: 'phone',
+      message: "What's your new phone number?",
+      validate(value) {
+        const pass = value.match(
+          /^([07]{1})?[-.\s]?\(?(\d{3})\)?[-.\s]?(\d{3})[-.\s]?(\d{4})\s?((?:#|ext\.?\s?|x\.?\s?){1}(?:\d+)?)?$/i
+        );
+        if (pass) {
+          return true;
+        }
+  
+        return 'Please enter a valid phone number';
+      },
+    },
+  ];
   inquirer.prompt(updateQuestions).then((answers) => {
-    for (var a = 0; a < contacts.length; a++){
-      
-    }
-    
+    contacts = contacts.filter(contact => contact.full_name != answers.full_name);
     contacts.push(answers);
     main()
-  })
+  });
 }
+    
+    
+  
+
 function all() {
   console.log(contacts)
   main()
