@@ -90,10 +90,28 @@ function remove() {
       main()
     })
   }
-   
+function search() {
+  let searchQuestions = [{
+    type: "input",
+    name: "name",
+    message: "Enter the name of the contact you are looking for.",
+  }] 
+  inquirer.prompt(searchQuestions).then((answers) => {
+    console.log(JSON.stringify(answers, null, '  '));
     
-
+    
+      main()
+  })
+}
 function update() {
+  let updateQuestions = [{
+    type: "list",
+    name: "name",
+    message: "Pick a contact to update.",
+    choices: contacts.map(contact => {
+      return contact.full_name
+    }),
+  }]
     inquirer.prompt(questions).then((answers) => {
       console.log(JSON.stringify(answers, null, '  '));
         contacts.push(answers);
@@ -103,19 +121,4 @@ function update() {
 function all() {
 console.log(contacts)
 main()
-}
-function search() {
-  let searchQuestions = [{
-    type: "input",
-    name: "search",
-    message: "Enter the name of the contact you are looking for.",
-  }] 
-  inquirer.prompt(searchQuestions).then((answers) => {
-    console.log(JSON.stringify(answers, null, '  '));
-    console.log(contacts.name)
-    //if (contacts.name == JSON.stringify(answers, null, '  ')){
-    //  console.log(contacts);
-   // }
-      main()
-  })
 }
