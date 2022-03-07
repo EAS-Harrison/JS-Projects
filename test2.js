@@ -65,7 +65,6 @@ const questions = [
 ];
 function create() {
   inquirer.prompt(questions).then((answers) => {
-    //let contact = (JSON.stringify(answers, null, '  '));
 
     contactsarray.push(answers)
     try {
@@ -87,6 +86,11 @@ function remove() {
   }]
   inquirer.prompt(removeQuestions).then((answers) => {
     contactsarray = contactsarray.filter(contact => contact.full_name != answers.name);
+    try {
+      fs.writeFileSync('/Users/harrisonsheard/JS-Projects/JS-Projects/arrayfile.json', JSON.stringify(contactsarray, null, 2))
+    } catch (err) {
+      console.error(err)
+    }
     main()
   })
 }
