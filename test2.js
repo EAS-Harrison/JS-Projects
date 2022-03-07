@@ -2,6 +2,7 @@
 'use strict';
 const inquirer = require('inquirer');
 const fs = require('fs');
+let contactsarray = []
 const main = async () => {
   const { choice } = await inquirer.prompt([
     {
@@ -14,9 +15,9 @@ const main = async () => {
         'Delete a contact',
         'Get contact by name',
         'Get all contacts',
-      ],
-    }
-  ])
+      ]}
+])
+
   console.log(choice)
   switch (choice) {
     case 'Create a contact':
@@ -36,15 +37,7 @@ const main = async () => {
       break;
   }
 }
-
 main()
-
-
-
-var contacts = [{
-  "full_name": "j",
-  "phone": "07436903810"
-}]
 const questions = [
   {
     type: 'input',
@@ -66,30 +59,34 @@ const questions = [
       if (pass) {
         return true;
       }
-
       return 'Please enter a valid phone number';
     },
   },
 ];
 function create() {
   inquirer.prompt(questions).then((answers) => {
-    console.log(JSON.stringify(answers, null, '  '));
-    contacts.push(answers);
+    //let contact = (JSON.stringify(answers, null, '  '));
+
+    contactsarray.push(answers)
+    try {
+      fs.writeFileSync('/Users/harrisonsheard/JS-Projects/JS-Projects/arrayfile.json', JSON.stringify(contactsarray, null, 2))
+    } catch (err) {
+      console.error(err)
+    }
     main()
   });
 }
-
 function remove() {
   let removeQuestions = [{
     type: "list",
     name: "name",
     message: "Pick a contact to remove.",
-    choices: contacts.map(contact => {
+    choices: contactsarray.map(contact => {
       return contact.full_name
     }),
   }]
   inquirer.prompt(removeQuestions).then((answers) => {
-    contacts = contacts.filter(contact => contact.full_name != answers.name);
+    contactsarray = contactsarray.filter(contact => contact.full_name != answers.name);
     main()
   })
 }
@@ -101,26 +98,24 @@ function search() {
   }]
 
   inquirer.prompt(searchQuestions).then((answers) => {
-    for (var i = 0; i < contacts.length; i++) {
-      if (contacts[i].full_name === answers.name) {
-        console.log(contacts[i])
+    for (var i = 0; i < contactsarray.length; i++) {
+      if (contactsarray[i].full_name === answers.name) {
+        console.log(contactsarray[i])
       }
-
     }
     main()
   })
 }
-function update(){
+function update() {
   let updateQuestions = [
     {
       type: 'list',
       name: 'full_name',
       message: "Pick a contact to update.",
-    choices: contacts.map(contact => {
-      return contact.full_name
-    }),
+      choices: contactsarray.map(contact => {
+        return contact.full_name
+      }),
     },
-  
     {
       type: 'input',
       name: 'phone',
@@ -132,22 +127,22 @@ function update(){
         if (pass) {
           return true;
         }
-  
         return 'Please enter a valid phone number';
       },
     },
   ];
   inquirer.prompt(updateQuestions).then((answers) => {
-    contacts = contacts.filter(contact => contact.full_name != answers.full_name);
-    contacts.push(answers);
+    contactsarray = contactsarray.filter(contact => contact.full_name != answers.full_name);
+    contactsarray.push(answers);
+    try {
+      fs.writeFileSync('/Users/harrisonsheard/JS-Projects/JS-Projects/arrayfile.json', JSON.stringify(contactsarray, null, 2))
+    } catch (err) {
+      console.error(err)
+    }
     main()
   });
 }
-    
-    
-  
-
 function all() {
-  console.log(contacts)
+  console.log(contactsarray)
   main()
 }
