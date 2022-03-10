@@ -7,10 +7,22 @@ console.log('myArgs: ', myArgs);
 const docLimits = yaml.load(fs.readFileSync(myArgs[0]));
 const docResources = YAML.loadAll(fs.readFileSync(myArgs[1]));
 
+// Make the data have a base unit
+const parseToInt = (string) => {
+    if (string.includes('m')) {
+        return +string.substring(0, string.length - 1) / 1000
+    }
+    if (string.includes('Gi')) {
+        return +string.substring(0, string.length - 2) * 2000
+    }
+    if (string.includes('Mi')) {
+        return +string.substring(0, string.length - 2)
+    }
+    return +string.substring(0, string.length)
+}    
     
-    
-    function check() {
-        if (totalResources.limits.cpu > totalLimits.limits.cpu) {
+function check() {
+    if (totalResources.limits.cpu > totalLimits.limits.cpu) {
             var a = totalResources.limits.cpu - totalLimits.limits.cpu
             console.log(`CPU limit is ${a} CPU too high`)
             process.exit(1)
@@ -27,7 +39,9 @@ else if (totalR.requests.memory > totalLimits.requests.memory){
 }
 else {console.log(`Total minimum requirements OK!`)
 process.exit(0)
-}
+}}
+
+
 for(let document in docResources){
     for (let container in docResources[document].spec.template.spec) {
             console.log(docResources[document].spec.template.spec.containers[container])
@@ -52,8 +66,64 @@ for(var i = 0; i <individualContainers.length; i++){
     }
    }
   }
- }
+  let totalResources = {
+    limits: {
+        cpu: 0,
+        memory: 0
+    },
+    requests: {
+        cpu: 0,
+        memory: 0
+    }
+}
+let totalLimits = {
+    limits: {
+        cpu: docLimits.total.limit.cpu,
+        memory: docLimits.total.limit.mem
+    },
+    requests: {
+        cpu: docLimits.total.request.cpu,
+        memory: docLimits.total.request.mem
+    }
+};
+let individualContainersRes = {}
+for (let document in docResources) {
+    if (!individualContainersRes[docResources[document].metadata.namespace]) {
+        individualContainersRes[docResources[document].metadata.namespace] = {
+            totals: {
+                limits: {
+                    cpu: 0,
+                    memory: 0
+                },
+                requests: {
+                    cpu: 0,
+                    memory: 0
+                }
+            },
+            containers: {
+                limits: {
+                    cpu: 0,
+                    memory: 0
+                },
+                requests: {
+                    cpu: 0,
+                    memory: 0
+                }
+            },
+            initContainers: {
+                limits: {
+                    cpu: 0,
+                    memory: 0
+                },
+                requests: {
+                    cpu: 0,
+                    memory: 0
+                }
+            }
 
+        }
+    } 
+}
 
 
 
