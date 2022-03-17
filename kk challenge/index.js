@@ -5,8 +5,6 @@ const myArgs = process.argv.slice(2);
 const docLimits = yaml.loadAll(fs.readFileSync(myArgs[0]));
 const docResources = yaml.loadAll(fs.readFileSync(myArgs[1]));
 
-
-
 // Make the data have a base unit
 const parseToInt = (string) => {
     if (string.includes('m')) {
@@ -22,18 +20,18 @@ const parseToInt = (string) => {
 }    
 function check() {
     if (totalResources.limits.cpu > totalLimits.limits.cpu) {
-            var a = totalResources.limits.cpu - totalLimits.limits.cpu
-            console.log(`CPU limit is ${a} CPU too high`)
+            var x = totalResources.limits.cpu - totalLimits.limits.cpu
+            console.log(`CPU limit is ${x} CPU too high`)
             process.exit(1)
 }
 else if (totalResources.requests.cpu > totalLimits.requests.cpu){
-    var c = totalResources.requests.cpu - totalLimits.requests.cpu
-    console.log(`Cpu request is ${c} CPU is too high`)
+    var y = totalResources.requests.cpu - totalLimits.requests.cpu
+    console.log(`Cpu request is ${y} CPU is too high`)
     process.exit(1)
 }
 else if (totalResources.requests.memory > totalLimits.requests.memory){
-    var d = totalResources.requests.memory - totalLimits.requests.memory
-    console.log(`Memory is ${d} too high!`)
+    var z = totalResources.requests.memory - totalLimits.requests.memory
+    console.log(`Memory is ${z} too high!`)
     process.exit(1)
 }
 else {console.log(`Total minimum requirements OK!`)
@@ -41,12 +39,12 @@ process.exit(0)
 }}
 let totalResources = {
     limits: {
-        cpu: 0,
-        memory: 0
+        cpu: docResources[0].spec.template.spec.containers[0].resources.limits.cpu,
+        memory: docResources[0].spec.template.spec.containers[0].resources.limits.memory
     },
     requests: {
-        cpu: 0,
-        memory: 0
+        cpu: docResources[0].spec.template.spec.containers[0].resources.requests.cpu,
+        memory: docResources[0].spec.template.spec.containers[0].resources.requests.memory
     }
 }
 let totalLimits = {
@@ -59,6 +57,6 @@ let totalLimits = {
         memory: docLimits[0].total.request.mem
     }
 };
-console.log(totalLimits)
-console.log(totalResources)
-check()
+// check()
+// console.log(docResources[0].spec.template.spec.containers[0].resources.limits.cpu)
+console.log(totalResources.requests.cpu)
