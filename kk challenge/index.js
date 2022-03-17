@@ -1,6 +1,6 @@
 const fs = require("fs");
 const yaml = require("js-yaml");
-const resourceChecker = require("resource-checker");
+//const resourceChecker = require("resource-checker");
 const myArgs = process.argv.slice(2);
 const docLimits = yaml.loadAll(fs.readFileSync(myArgs[0]));
 const docResources = yaml.loadAll(fs.readFileSync(myArgs[1]));
