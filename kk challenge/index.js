@@ -59,4 +59,8 @@ let totalLimits = {
 };
 // check()
 // console.log(docResources[0].spec.template.spec.containers[0].resources.limits.cpu)
+<<<<<<< HEAD
 console.log(totalResources.requests.cpu)
+=======
+console.log(totalResources.requests.cpu)
+>>>>>>> 873c3e55cbc763912855fb43d18d5e90b3f3a218
