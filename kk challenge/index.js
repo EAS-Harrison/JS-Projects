@@ -52,10 +52,19 @@ let totalResources = {
         memory: null
     }
 }
-let resource = docResources[0].spec.template.spec.containers[0];
-for (let i = 0, len = resource.length; i < len; i++) {
+for (document in docResources)
+    for (containers in docResources[document].spec.template.spec.containers)
+        resourcesTotals.limits.cpu += parseToInt(docResources[document].spec.template.spec.containers[0].resources.limits.cpu)
+resourcesTotals.requests.cpu += parseToInt(docResources[0].spec.template.spec.containers[0].resources.requests.cpu)
+resourcesTotals.limits.memory += parseToInt(docResources[0].spec.template.spec.containers[0].resources.limits.memory)
+resourcesTotals.requests.memory += parseToInt(docResources[0].spec.template.spec.containers[0].resources.requests.memory)
 
-}
+for (document2 in docResources)
+    for (initcontainers in docResources[document].spec.template.spec.initcontainers)
+        resourcesTotals.limits.cpu += parseToInt(docResources[document].spec.template.spec.initcontainers[0].resources.limits.cpu)
+resourcesTotals.requests.cpu += parseToInt(docResources[0].spec.template.spec.initcontainers[0].resources.requests.cpu)
+resourcesTotals.limits.memory += parseToInt(docResources[0].spec.template.spec.initcontainers[0].resources.limits.memory)
+resourcesTotals.requests.memory += parseToInt(docResources[0].spec.template.spec.initcontainers[0].resources.requests.memory)
 
 
 
@@ -73,14 +82,3 @@ for (let i = 0, len = resource.length; i < len; i++) {
 // check()
 // console.log(docResources[0].spec.template.spec)
 // console.log(docResources[0])
-const main = async () => {
-    const { choice } = await inquirer.prompt([
-        {
-            type: 'list',
-            name: 'choice',
-            message: 'What do you want to do?',
-            choices: docResources.map()
-        }
-    ])
-}
-main()
