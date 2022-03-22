@@ -11,8 +11,9 @@
   "dependencies": {
     "checker": "^0.5.2",
     "fs": "^0.0.1-security",
-    "inquirer": "^8.2.0",
+    "inquirer": "^8.2.1",
     "js-yaml": "^4.1.0",
     "resource": "^0.8.1"
-  }
+  },
+  "devDependencies": {}
 }
