@@ -42,45 +42,59 @@ function check() {
         process.exit(0)
     }
 }
-let totalResources = {
-    containers: {
-        limits: {
-            cpu: null,
-            memory: null
-        },
-        requests: {
-            cpu: null,
-            memory: null
-        }
-    },
-    initContainers: {
-        limits: {
-            cpu: null,
-            memory: null
-        },
-        requests: {
-            cpu: null,
-            memory: null
-        }
-    }
-}
-
-for (let document in docResources) {
-    for (let containers in docResources[document].spec.template.spec.containers) {
-        totalResources.containers.limits.cpu += parseToInt(docResources[document].spec.template.spec.containers[containers].resources.limits.cpu)
-        totalResources.containers.requests.cpu += parseToInt(docResources[document].spec.template.spec.containers[containers].resources.requests.cpu)
-        totalResources.containers.limits.memory += parseToInt(docResources[document].spec.template.spec.containers[containers].resources.limits.memory)
-        totalResources.containers.requests.memory += parseToInt(docResources[document].spec.template.spec.containers[containers].resources.requests.memory)
-    }
-    for (let initContainers in docResources[document].spec.template.spec.initContainers) {
-        totalResources.initContainers.limits.cpu += parseToInt(docResources[document].spec.template.spec.initContainers[initContainers].resources.limits.cpu)
-        totalResources.initContainers.requests.cpu += parseToInt(docResources[document].spec.template.spec.initContainers[initContainers].resources.requests.cpu)
-        totalResources.initContainers.limits.memory += parseToInt(docResources[document].spec.template.spec.initContainers[initContainers].resources.limits.memory)
-        totalResources.initContainers.requests.memory += parseToInt(docResources[document].spec.template.spec.initContainers[initContainers].resources.requests.memory)
-    }
-}
+// for (let document in docResources) {
+//     for (let containers in docResources[document].spec.template.spec.containers) {
+//         totalResources.containers.limits.cpu += parseToInt(docResources[document].spec.template.spec.containers[containers].resources.limits.cpu)
+//         totalResources.containers.requests.cpu += parseToInt(docResources[document].spec.template.spec.containers[containers].resources.requests.cpu)
+//         totalResources.containers.limits.memory += parseToInt(docResources[document].spec.template.spec.containers[containers].resources.limits.memory)
+//         totalResources.containers.requests.memory += parseToInt(docResources[document].spec.template.spec.containers[containers].resources.requests.memory)
+//     }
+//     for (let initContainers in docResources[document].spec.template.spec.initContainers) {
+//         totalResources.initContainers.limits.cpu += parseToInt(docResources[document].spec.template.spec.initContainers[initContainers].resources.limits.cpu)
+//         totalResources.initContainers.requests.cpu += parseToInt(docResources[document].spec.template.spec.initContainers[initContainers].resources.requests.cpu)
+//         totalResources.initContainers.limits.memory += parseToInt(docResources[document].spec.template.spec.initContainers[initContainers].resources.limits.memory)
+//         totalResources.initContainers.requests.memory += parseToInt(docResources[document].spec.template.spec.initContainers[initContainers].resources.requests.memory)
+//     }
+// }
 // console.log(totalResources)
+let totalResources = {}
+
+docResources.forEach((document) => {
+    let namespace = document.metadata.namespace;
+    totalResources[namespace] = {
+        total: {
+            limit: {
+                cpu: null,
+                mem: null
+            },
+            request: {
+                cpu: null,
+                mem: null
+            }
+        },
+        containers: {
+            limits: {
+                cpu: null,
+                mem: null
+            },
+            requests: {
+                cpu: null,
+                mem: null
+            }
+        },
+        initContainers: {
+            limits: {
+                cpu: null,
+                mem: null
+            },
+            requests: {
+                cpu: null,
+                mem: null
+            }
+        }
+    }
+})
+console.log(totalResources.namespace1)
 
 
-// check()
-console.log(docLimits[0])
+// console.log(docLimits[0].namespace)
