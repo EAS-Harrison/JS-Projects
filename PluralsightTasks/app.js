@@ -16,6 +16,6 @@ app.set('view engine', 'ejs');
 app.get('/', (req, res) => {
     res.render('index', { title: 'Globalmantics', data: ['a', 'b', 'c'] });
 })
-app.listen(3000, () => {
+app.listen(4000, () => {
     debug(`listening to port ${chalk.green(PORT)}`)
 })
