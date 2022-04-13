@@ -3,7 +3,7 @@ let app = express()
 
 let router = express.Router()
 
-router.Get('/', function (req, res, next) {
+router.get('/', function (req, res, next) {
     res.send('Apple')
 })
 
