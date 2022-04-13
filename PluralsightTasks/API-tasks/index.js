@@ -1,6 +1,7 @@
 let express = require('express')
 let app = express()
-let pieRepo = require('./repos/pieRepo');
+let pieRepo = require('./repos/pieRepo')
+let errorHelper = require('./helpers/errorHelpers')
 
 let router = express.Router()
 
@@ -128,7 +129,9 @@ router.delete('/:id', function (req, res, next) {
     })
 })
 app.use('/api/', router)
-
+app.use(errorHelper.logErrorsToConsole)
+app.use(errorHelper.clientErrorHandler)
+app.use(errorHelper.errorHandler)
 var server = app.listen(3000, function () {
     console.log('Node server is running on localhost:3000')
 })
