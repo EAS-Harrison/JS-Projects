@@ -132,6 +132,7 @@ app.use('/api/', router)
 app.use(errorHelper.logErrorsToConsole)
 app.use(errorHelper.clientErrorHandler)
 app.use(errorHelper.errorHandler)
+app.use(errorHelper.logErrorsToFile)
 var server = app.listen(3000, function () {
     console.log('Node server is running on localhost:3000')
 })
