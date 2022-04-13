@@ -1,4 +1,4 @@
-let express = requier('express')
+let express = require('express')
 let app = express()
 
 let router = express.Router()
