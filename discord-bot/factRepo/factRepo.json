@@ -1,0 +1,12 @@
+[
+    {
+        "id": 1,
+        "topic": "JavaScript",
+        "fact": "Despite the fact that there are similarities between JavaScript and Java, including language name, respective standard libraries and syntax, these two languages are distinct and differ significantly in design."
+    },
+    {
+        "id": 2,
+        "topic": "JavaScript",
+        "fact": "Like all other scripting languages, arrays and objects can be created with a brief shortcut syntax. These literals structure the basis of JSON data format."
+    }
+]

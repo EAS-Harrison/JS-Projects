@@ -18,7 +18,7 @@
   "homepage": "https://github.com/EAS-Harrison/JS-Projects#readme",
   "dependencies": {
     "fs": "^0.0.1-security",
-    "inquirer": "^8.2.0"
-  },
-  "devDependencies": {}
+    "inquirer": "^8.2.0",
+    "mysql": "^2.18.1"
+  }
 }
